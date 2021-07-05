@@ -1,5 +1,3 @@
-#!/bin/ash
-
 for file in ~/.ashrc.d/*
 do
     . "$file"
