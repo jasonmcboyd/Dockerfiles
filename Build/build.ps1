@@ -9,6 +9,9 @@ param (
     [string]
     $ContextPath,
 
+    [string]
+    $Tag,
+
     [switch]
     $Latest
 )
@@ -32,13 +35,15 @@ foreach ($key in $BuildArgs.Keys.Clone()) {
 $buildArgsString = [string]::Join(' ', ($BuildArgs.GetEnumerator() | ForEach-Object { "--build-arg $($_.Key)=$($_.Value)" }))
 Write-Debug "BuildArgsString: $BuildArgsString"
 
-$tag = `
-    $BuildArgs.GetEnumerator() `
-    | Where-Object {
-        $key = $_.Key.Replace('_', '')
-        $key -match $Image
-    } `
-    | Select-Object -ExpandProperty Value
+if ([string]::IsNullOrEmpty($Tag)) {
+    $tag = `
+        $BuildArgs.GetEnumerator() `
+        | Where-Object {
+            $key = $_.Key.Replace('_', '')
+            $key -match $Image
+        } `
+        | Select-Object -ExpandProperty Value
+}
 Write-Debug "tag: $tag"
 
 function BuildDockerfile($InternalTag) {
