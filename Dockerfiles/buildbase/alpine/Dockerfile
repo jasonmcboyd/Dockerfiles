@@ -1,0 +1,6 @@
+ARG PYTHON3_VERSION
+ARG BUILD_BASE_VERSION
+
+FROM jasonmcboyd/python3:$PYTHON3_VERSION
+ARG BUILD_BASE_VERSION
+RUN apk add build-base=$BUILD_BASE_VERSION python3-dev zeromq-dev libffi-dev

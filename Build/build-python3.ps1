@@ -4,19 +4,19 @@ param (
     $AlpineVersion,
 
     [string]
-    $TerraformVersion,
+    $Python3Version,
 
     [switch]
     $Latest
 )
 
 $BuildArgs = @{
-    ALPINE_VERSION    = $AlpineVersion
-    TERRAFORM_VERSION = $TerraformVersion
+    ALPINE_VERSION  = $AlpineVersion
+    PYTHON3_VERSION = $Python3Version
 }
 
 & $PSScriptRoot/build.ps1 `
-    -Image 'terraform' `
+    -Image 'python3' `
     -BuildArgs $BuildArgs `
-    -ContextPath "$PSScriptRoot/../Dockerfiles/terraform/alpine" `
+    -ContextPath "$PSScriptRoot/../Dockerfiles/python3/alpine" `
     -Latest:$Latest
